@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Supplier;
 use App\Models\RawMaterial;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class RawMaterialController extends Controller
 {
@@ -21,7 +23,7 @@ class RawMaterialController extends Controller
     {
         $categories = Category::all();
         $suppliers = Supplier::all();
-        return view('content.raw_materials.create', compact('categories', 'suppliers'));
+        return view('content.raw_material.create', compact('categories', 'suppliers'));
     }
 
     public function store(Request $request)
@@ -33,7 +35,7 @@ class RawMaterialController extends Controller
             'unit_price' => 'required|numeric|min:0',
             'category_id' => 'required|exists:categories,id',
             'supplier_id' => 'required|exists:suppliers,id',
-            'image_path' => 'nullable|image|max:2048',
+            'image_path' => 'nullable|image',
             'reorder_level' => 'nullable|integer|min:0',
             'reorder_quantity' => 'nullable|integer|min:1',
             'lead_time' => 'nullable|integer|min:0',
@@ -53,20 +55,20 @@ class RawMaterialController extends Controller
             }
         }
 
-        return redirect()->route('raw_material.index')->with('success', 'Raw Material created successfully.');
+        return redirect()->route('raw_materials')->with('success', 'Raw Material created successfully.');
     }
 
 
-    public function edit($id)
+    public function edit($slug)
     {
-        $rawMaterial = RawMaterial::findOrFail($id);
+$rawMaterial= RawMaterial::where('slug', $slug)->firstOrFail();
         $categories = Category::all();
         $suppliers = Supplier::all();
 
-        return view('content.raw_materials.edit', compact('rawMaterial', 'categories', 'suppliers'));
+        return view('content.raw_material.edit', compact('rawMaterial', 'categories', 'suppliers'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
@@ -75,7 +77,7 @@ class RawMaterialController extends Controller
             'unit_price' => 'required|numeric|min:0',
             'category_id' => 'required|exists:categories,id',
             'supplier_id' => 'required|exists:suppliers,id',
-            'image_path' => 'nullable|image|max:2048',
+            'image_path' => 'nullable|image',
             'reorder_level' => 'nullable|integer|min:0',
             'reorder_quantity' => 'nullable|integer|min:1',
             'lead_time' => 'nullable|integer|min:0',
@@ -84,7 +86,7 @@ class RawMaterialController extends Controller
             'is_active' => 'boolean',
         ]);
 
-        $rawMaterial = RawMaterial::findOrFail($id);
+$rawMaterial= RawMaterial::where('slug', $slug)->firstOrFail();
         $rawMaterial->update($validatedData);
 
         if ($request->hasFile('image_path')) {
@@ -98,22 +100,22 @@ class RawMaterialController extends Controller
             }
         }
 
-        return redirect()->route('raw_material.index')->with('success', 'Raw Material updated successfully.');
+        return redirect()->route('raw_materials')->with('success', 'Raw Material updated successfully.');
     }
 
-    public function destroy($id)
+    public function destroy($slug)
     {
-        $rawMaterial = RawMaterial::findOrFail($id);
+        $rawMaterial= RawMaterial::where('slug', $slug)->firstOrFail();
         $rawMaterial->delete();
 
-        return redirect()->route('raw_material.index')->with('success', 'Raw Material deleted successfully.');
+        return redirect()->route('raw_materials')->with('success', 'Raw Material deleted successfully.');
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        $rawMaterial = RawMaterial::findOrFail($id);
+        $rawMaterial= RawMaterial::where('slug', $slug)->firstOrFail();
 
-        return view('content.raw_materials.show', compact('rawMaterial'));
+        return view('content.raw_material.show', compact('rawMaterial'));
     }
 
     public function search(Request $request)
@@ -147,12 +149,12 @@ class RawMaterialController extends Controller
         return view('content.raw_material.index', compact('rawMaterials'));
     }
 
-    public function toggleActive($id)
+    public function toggleActive($slug)
     {
-        $rawMaterial = RawMaterial::findOrFail($id);
+$rawMaterial= RawMaterial::where('slug', $slug)->firstOrFail();
         $rawMaterial->is_active = !$rawMaterial->is_active;
         $rawMaterial->save();
 
-        return redirect()->route('raw_material.index')->with('success', 'Raw Material status updated successfully.');
+        return redirect()->route('raw_materials')->with('success', 'Raw Material status updated successfully.');
     }
 }

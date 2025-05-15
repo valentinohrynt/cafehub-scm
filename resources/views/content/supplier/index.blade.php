@@ -29,8 +29,8 @@
                             <td>{{ $supplier->email }}</td>
                             <td>{{ Str::limit($supplier->address, 40) }}</td>
                             <td class="text-end">
-                                <a href="{{ route('suppliers.show', $supplier->id) }}" class="btn btn-sm btn-outline-primary">View</a>
-                                <a href="{{ route('suppliers.edit', $supplier->id) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                <a href="{{ route('suppliers.show', $supplier->slug) }}" class="btn btn-sm btn-outline-primary">View</a>
+                                <a href="{{ route('suppliers.edit', $supplier->slug) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
                             </td>
                         </tr>
                     @endforeach

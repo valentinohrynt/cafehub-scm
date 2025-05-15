@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -19,7 +21,7 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('content.product.create');
+        return view('content.product.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -27,11 +29,9 @@ class ProductController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string|max:1000',
-            'base_price' => 'required|numeric|min:0',
             'selling_price' => 'required|numeric|min:0',
-            'stock' => 'required|integer|min:0',
             'category_id' => 'required|exists:categories,id',
-            'image_path' => 'nullable|image|max:2048',
+            'image_path' => 'nullable|image',
             'slug' => 'nullable|string|max:255',
             'is_active' => 'boolean',
         ]);
@@ -48,31 +48,30 @@ class ProductController extends Controller
             }
         }
 
-        return redirect()->route('product.index')->with('success', 'Product created successfully.');
+        return redirect()->route('products')->with('success', 'Product created successfully.');
     }
 
-    public function edit($id)
+    public function edit($slug)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::where('slug', $slug)->firstOrFail();
+        $categories = Category::all();
 
-        return view('content.product.edit', compact('product'));
+        return view('content.product.edit', compact('product', 'categories'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string|max:1000',
-            'base_price' => 'required|numeric|min:0',
             'selling_price' => 'required|numeric|min:0',
-            'stock' => 'required|integer|min:0',
             'category_id' => 'required|exists:categories,id',
-            'image_path' => 'nullable|image|max:2048',
+            'image_path' => 'nullable|image',
             'slug' => 'nullable|string|max:255',
             'is_active' => 'boolean',
         ]);
 
-        $product = Product::findOrFail($id);
+        $product = Product::where('slug', $slug)->firstOrFail();
 
         $product->update($validatedData);
 
@@ -88,21 +87,21 @@ class ProductController extends Controller
             }
         }
 
-        return redirect()->route('product.index')->with('success', 'Product updated successfully.');
+        return redirect()->route('products')->with('success', 'Product updated successfully.');
     }
 
 
-    public function destroy($id)
+    public function destroy($slug)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::where('slug', $slug)->firstOrFail();
         $product->delete();
 
-        return redirect()->route('product.index')->with('success', 'Product deleted successfully.');
+        return redirect()->route('products')->with('success', 'Product deleted successfully.');
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::where('slug', $slug)->firstOrFail();
 
         return view('content.product.show', compact('product'));
     }
@@ -117,13 +116,13 @@ class ProductController extends Controller
         return view('content.product.index', compact('products'));
     }
 
-    public function toggleActive($id)
+    public function toggleActive($slug)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::where('slug', $slug)->firstOrFail();
         $product->is_active = !$product->is_active;
         $product->save();
 
-        return redirect()->route('product.index')->with('success', 'Product status updated successfully.');
+        return redirect()->route('products')->with('success', 'Product status updated successfully.');
     }
 
     public function filter(Request $request)

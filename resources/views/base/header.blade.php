@@ -25,12 +25,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('raw_materials*') ? 'active' : '' }}" href="{{ route('raw_materials') }}">
+                        <a class="nav-link {{ request()->is('raw-materials*') ? 'active' : '' }}" href="{{ route('raw_materials') }}">
                             <i class="bi bi-box-seam me-1"></i> Inventory
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('bill_of_materials*') ? 'active' : '' }}" href="{{ route('bill_of_materials') }}">
+                        <a class="nav-link {{ request()->is('bill-of-materials*') ? 'active' : '' }}" href="{{ route('bill_of_materials') }}">
                             <i class="bi bi-clipboard-data me-1"></i> Recipes
                         </a>
                     </li>

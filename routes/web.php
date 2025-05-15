@@ -23,19 +23,19 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 Route::get('/raw-materials', [RawMaterialController::class, 'index'])->name('raw_materials');
 Route::get('/raw-materials/create', [RawMaterialController::class, 'create'])->name('raw_materials.create');
 Route::post('/raw-materials', [RawMaterialController::class, 'store'])->name('raw_materials.store');
-Route::get('/raw-materials/{id}/edit', [RawMaterialController::class, 'edit'])->name('raw_materials.edit');
-Route::put('/raw-materials/{id}', [RawMaterialController::class, 'update'])->name('raw_materials.update');
-Route::get('/raw-materials/{id}', [RawMaterialController::class, 'show'])->name('raw_materials.show');
-Route::get('/raw-materials/{id}/delete', [RawMaterialController::class, 'destroy'])->name('raw_materials.delete');
+Route::get('/raw-materials/{slug}/edit', [RawMaterialController::class, 'edit'])->name('raw_materials.edit');
+Route::put('/raw-materials/{slug}', [RawMaterialController::class, 'update'])->name('raw_materials.update');
+Route::get('/raw-materials/{slug}', [RawMaterialController::class, 'show'])->name('raw_materials.show');
+Route::get('/raw-materials/{slug}/delete', [RawMaterialController::class, 'destroy'])->name('raw_materials.delete');
 
 
 Route::get('/suppliers', [SupplierController::class, 'index'])->name('suppliers');
 Route::get('/suppliers/create', [SupplierController::class, 'create'])->name('suppliers.create');
 Route::post('/suppliers', [SupplierController::class, 'store'])->name('suppliers.store');
-Route::get('/suppliers/{id}/edit', [SupplierController::class, 'edit'])->name('suppliers.edit');
-Route::put('/suppliers/{id}', [SupplierController::class, 'update'])->name('suppliers.update');
-Route::get('/suppliers/{id}', [SupplierController::class, 'show'])->name('suppliers.show');
-Route::get('/suppliers/{id}/delete', [SupplierController::class, 'destroy'])->name('suppliers.delete');
+Route::get('/suppliers/{slug}/edit', [SupplierController::class, 'edit'])->name('suppliers.edit');
+Route::put('/suppliers/{slug}', [SupplierController::class, 'update'])->name('suppliers.update');
+Route::get('/suppliers/{slug}', [SupplierController::class, 'show'])->name('suppliers.show');
+Route::get('/suppliers/{slug}/delete', [SupplierController::class, 'destroy'])->name('suppliers.delete');
 
 
 Route::get('/products', [ProductController::class, 'index'])->name('products');

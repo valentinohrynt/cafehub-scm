@@ -28,21 +28,25 @@ class SupplierController extends Controller
             'phone' => 'required|string|max:20',
             'email' => 'required|email|max:255',
             'address' => 'required|string|max:255',
+            'city' => 'nullable|string|max:255',
+            'state' => 'nullable|string|max:255',
+            'zip_code' => 'nullable|string|max:20',
+            'country' => 'nullable|string|max:255',
         ]);
 
         Supplier::create($validatedData);
 
-        return redirect()->route('supplier.index')->with('success', 'Supplier created successfully.');
+        return redirect()->route('suppliers')->with('success', 'Supplier created successfully.');
     }
 
-    public function edit($id)
+    public function edit($slug)
     {
-        $supplier = Supplier::findOrFail($id);
+        $supplier = Supplier::where('slug', $slug)->firstOrFail();
 
         return view('content.supplier.edit', compact('supplier'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
@@ -50,28 +54,33 @@ class SupplierController extends Controller
             'phone' => 'required|string|max:20',
             'email' => 'required|email|max:255',
             'address' => 'required|string|max:255',
+            'city' => 'nullable|string|max:255',
+            'state' => 'nullable|string|max:255',
+            'zip_code' => 'nullable|string|max:20',
+            'country' => 'nullable|string|max:255',
+            'is_active' => 'boolean',
         ]);
 
-        $supplier = Supplier::findOrFail($id);
+        $supplier = Supplier::where('slug', $slug)->firstOrFail();
         $supplier->update($validatedData);
 
-        return redirect()->route('supplier.index')->with('success', 'Supplier updated successfully.');
+        return redirect()->route('suppliers')->with('success', 'Supplier updated successfully.');
     }
 
-    public function destroy($id)
+    public function destroy($slug)
     {
-        $supplier = Supplier::findOrFail($id);
+        $supplier = Supplier::where('slug', $slug)->firstOrFail();
         $supplier->delete();
 
-        return redirect()->route('supplier.index')->with('success', 'Supplier deleted successfully.');
+        return redirect()->route('suppliers')->with('success', 'Supplier deleted successfully.');
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        $supplier = Supplier::findOrFail($id);
-
+        $supplier = Supplier::where('slug', $slug)->firstOrFail();
         return view('content.supplier.show', compact('supplier'));
     }
+
 
     public function search(Request $request)
     {

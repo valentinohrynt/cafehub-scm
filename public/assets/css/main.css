@@ -181,3 +181,35 @@ footer p {
         justify-content: center;
     }
 }
+
+.material-card {
+    transition: all 0.3s ease;
+    border: 1px solid transparent !important;
+}
+
+.material-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    border-color: #ddd !important;
+    z-index: 2;
+}
+
+.btn-action {
+    transition: all 0.2s ease;
+}
+
+.btn-action:hover {
+    transform: scale(1.05);
+}
+
+.card-img-container {
+    overflow: hidden;
+}
+
+.card-img-top {
+    transition: transform 0.5s ease;
+}
+
+.material-card:hover .card-img-top {
+    transform: scale(1.1);
+}
