@@ -18,8 +18,10 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->integer('stock')->default(0);
             $table->decimal('unit_price', 10, 2)->default(0.00);
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->foreignId('supplier_id')->constrained()->onDelete('cascade');
+            $table->foreignId('category_id')->constrained()->onDelete('restrict');
+            $table->foreignId('supplier_id')
+                ->constrained()
+                ->onDelete('restrict');
             $table->string('image_path')->nullable();
             $table->integer('reorder_level')->default(0);
             $table->integer('reorder_quantity')->default(0);

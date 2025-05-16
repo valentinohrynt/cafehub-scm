@@ -61,7 +61,7 @@ class RawMaterialController extends Controller
 
     public function edit($slug)
     {
-$rawMaterial= RawMaterial::where('slug', $slug)->firstOrFail();
+        $rawMaterial= RawMaterial::where('slug', $slug)->firstOrFail();
         $categories = Category::all();
         $suppliers = Supplier::all();
 

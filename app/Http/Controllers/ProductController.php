@@ -13,7 +13,23 @@ class ProductController extends Controller
     //
     public function index()
     {
-        $products = Product::paginate(50);
+        $products = Product::with(['billOfMaterial.rawMaterial'])->paginate(20);
+
+        foreach ($products as $product) {
+            $boms = $product->billOfMaterial;
+
+            $product->base_price = $boms->sum('total_cost');
+
+            $possibleUnits = PHP_INT_MAX;
+            foreach ($boms as $bom) {
+                $availableStock = $bom->rawMaterial->stock ?? 0;
+                $requiredQty = $bom->quantity;
+                if ($requiredQty > 0) {
+                    $possibleUnits = min($possibleUnits, floor($availableStock / $requiredQty));
+                }
+            }
+            $product->possible_units = $possibleUnits === PHP_INT_MAX ? 0 : $possibleUnits;
+        }
 
         return view('content.product.index', compact('products'));
     }

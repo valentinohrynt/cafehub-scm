@@ -15,7 +15,8 @@
                                     <img src="{{ asset('storage/product_img/' . $prod->image_path) }}" class="card-img-top"
                                         alt="{{ $prod->name }}" style="height: 120px; object-fit: cover;">
                                     <div class="position-absolute top-0 end-0 p-1">
-                                        <span class="badge {{ $prod->is_active ? 'bg-success' : 'bg-danger' }} rounded-pill">
+                                        <span
+                                            class="badge {{ $prod->is_active ? 'bg-success' : 'bg-danger' }} rounded-pill">
                                             {{ $prod->is_active ? 'Active' : 'Inactive' }}
                                         </span>
                                     </div>
@@ -27,7 +28,8 @@
                                             style="font-size: 2rem; line-height: 80px;"></i>
                                     </div>
                                     <div class="position-absolute top-0 end-0 p-1">
-                                        <span class="badge {{ $prod->is_active ? 'bg-success' : 'bg-danger' }} rounded-pill">
+                                        <span
+                                            class="badge {{ $prod->is_active ? 'bg-success' : 'bg-danger' }} rounded-pill">
                                             {{ $prod->is_active ? 'Active' : 'Inactive' }}
                                         </span>
                                     </div>
@@ -36,18 +38,17 @@
                             <div class="card-body p-3">
                                 <h6 class="card-title fw-bold text-truncate mb-1" title="{{ $prod->name }}">
                                     {{ $prod->name }}</h6>
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <small class="text-muted">Rp{{ number_format($prod->selling_price, 2) }}</small>
-                                    <small>
-                                        Stock: {{ number_format($prod->stock) }}
+                                <p class="mb-1">
+                                    <small class="text-muted">
+                                        Selling price: <strong>Rp{{ number_format($prod->selling_price ?? 0, 2) }}</strong>
+                                        <br>
+                                        Base price: <strong>Rp{{ number_format($prod->base_price ?? 0, 2) }}</strong>
+                                        <br>
+                                        Can produce: <strong>{{ $prod->possible_units ?? 0 }}</strong> units
                                     </small>
-                                </div>
-                                @if ($prod->description)
-                                    <p class="card-text small text-muted mb-2" style="height: 40px; overflow: hidden;">
-                                        {{ Str::limit($prod->description, 50) }}
-                                    </p>
-                                @endif
+                                </p>
                             </div>
+
                             <div class="card-footer bg-transparent p-2 border-0 d-flex justify-content-between">
                                 <a href="{{ route('products.show', $prod->slug) }}"
                                     class="btn btn-sm btn-outline-primary px-2 py-1 btn-action">View</a>

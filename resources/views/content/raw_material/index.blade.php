@@ -37,7 +37,7 @@
                                 <h6 class="card-title fw-bold text-truncate mb-1" title="{{ $raw->name }}">
                                     {{ $raw->name }}</h6>
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <small class="text-muted">${{ number_format($raw->unit_price, 2) }}</small>
+                                    <small class="text-muted">Rp{{ number_format($raw->unit_price, 2) }}</small>
                                     <small
                                         class="badge bg-{{ $raw->stock <= ($raw->reorder_level ?? 0) ? 'danger' : 'light text-dark' }}">
                                         Stock: {{ number_format($raw->stock) }}

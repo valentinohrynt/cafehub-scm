@@ -2,7 +2,7 @@
 @section('content')
     <div class="container py-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold mb-0">Raw Material Details</h2>
+            <h2 class="fw-bold mb-0">Product Details</h2>
             <div>
                 <a href="{{ route('products.edit', $product->slug) }}" class="btn btn-outline-primary me-2">
                     <i class="bi bi-pencil"></i> Edit
@@ -72,7 +72,7 @@
                         <div class="d-flex justify-content-end mt-4">
                             <a href="{{ route('products.delete', $product->slug) }}"
                                 class="btn btn-outline-danger"
-                                onclick="return confirm('Are you sure you want to delete this raw material?');">
+                                onclick="return confirm('Are you sure you want to delete this Product?');">
                                 <i class="bi bi-trash"></i> Delete
                             </a>
                         </div>

@@ -16,11 +16,5 @@
             </div>
         </div>
     </form>
-
-    <div class="mt-4 text-end">
-        <form action="{{ route('suppliers.delete', $supplier->slug) }}" method="GET" onsubmit="return confirm('Are you sure you want to delete this supplier?');">
-            <button type="submit" class="btn btn-danger">Delete</button>
-        </form>
-    </div>
 </div> 
 @endsection

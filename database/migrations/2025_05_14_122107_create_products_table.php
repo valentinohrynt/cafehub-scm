@@ -19,7 +19,7 @@ return new class extends Migration
             $table->decimal('selling_price', 10, 2)->default(0.00);
             $table->decimal('base_price', 10, 2)->default(0.00);
             $table->integer('stock')->default(0);
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->foreignId('category_id')->constrained()->onDelete('restrict');
             $table->string('image_path')->nullable();
             $table->string('slug')->unique();
             $table->boolean('is_active')->default(true);

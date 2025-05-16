@@ -41,18 +41,19 @@ Route::get('/suppliers/{slug}/delete', [SupplierController::class, 'destroy'])->
 Route::get('/products', [ProductController::class, 'index'])->name('products');
 Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
-Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
-Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
-Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
-Route::get('/products/{id}/delete', [ProductController::class, 'destroy'])->name('products.delete');
-Route::get('/products/{id}/raw-materials', [ProductController::class, 'showRawMaterials'])->name('products.raw_materials');
+Route::get('/products/{slug}/edit', [ProductController::class, 'edit'])->name('products.edit');
+Route::put('/products/{slug}', [ProductController::class, 'update'])->name('products.update');
+Route::get('/products/{slug}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/products/{slug}/delete', [ProductController::class, 'destroy'])->name('products.delete');
+Route::get('/products/{slug}/raw-materials', [ProductController::class, 'showRawMaterials'])->name('products.raw_materials');
 
 Route::get('/bill-of-materials', [BillOfMaterialController::class, 'index'])->name('bill_of_materials');
 Route::get('/bill-of-materials/create', [BillOfMaterialController::class, 'create'])->name('bill_of_materials.create');
 Route::post('/bill-of-materials', [BillOfMaterialController::class, 'store'])->name('bill_of_materials.store');
-Route::get('/bill-of-materials/{id}/edit', [BillOfMaterialController::class, 'edit'])->name('bill_of_materials.edit');
-Route::put('/bill-of-materials/{id}', [BillOfMaterialController::class, 'update'])->name('bill_of_materials.update');
-Route::get('/bill-of-materials/{id}', [BillOfMaterialController::class, 'show'])->name('bill_of_materials.show');
+Route::get('/bill-of-materials/{slug}/edit', [BillOfMaterialController::class, 'edit'])->name('bill_of_materials.edit');
+Route::put('/bill-of-materials/{slug}', [BillOfMaterialController::class, 'update'])->name('bill_of_materials.update');
+Route::get('/bill-of-materials/{slug}', [BillOfMaterialController::class, 'show'])->name('bill_of_materials.show');
+Route::get('/bill-of-materials/{slug}/delete', [BillOfMaterialController::class, 'destroy'])->name('bill_of_materials.delete');
 
 // Route::get('/', function () {
 //     return view('welcome');

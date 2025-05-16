@@ -41,19 +41,6 @@
             </div>
 
             <div class="row mb-3">
-                {{-- <div class="col-md-6">
-                    <div class="form-group mb-3">
-                        <label for="stock" class="form-label fw-bold">Current Stock <span
-                                class="text-danger">*</span></label>
-                        <input type="number" name="stock" id="stock" min="0"
-                            class="form-control @error('stock') is-invalid @enderror"
-                            value="{{ old('stock', $isEdit ? $product->stock : 0) }}" required>
-                        @error('stock')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div> --}}
-
                 <div class="col-md-6">
                     <div class="form-group mb-3">
                         <label for="is_active" class="form-label fw-bold">Status</label>
@@ -92,30 +79,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="row mb-3">
-
-                {{-- <div class="col-md-6">
-                    <div class="form-group mb-3">
-                        <label for="supplier_id" class="form-label fw-bold">Supplier <span
-                                class="text-danger">*</span></label>
-                        <select name="supplier_id" id="supplier_id"
-                            class="form-select @error('supplier_id') is-invalid @enderror" required>
-                            <option value="">Select Supplier</option>
-                            @foreach ($suppliers as $supplier)
-                                <option value="{{ $supplier->id }}"
-                                    {{ old('supplier_id', $isEdit ? $product->supplier_id : '') == $supplier->id ? 'selected' : '' }}>
-                                    {{ $supplier->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('supplier_id')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div> --}}
-            </div>
-
             <div class="row mb-3">
                 <div class="col-md-6">
                     <div class="form-group mb-3">
