@@ -20,6 +20,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link {{ request()->is('transactions*') ? 'active' : '' }}" href="{{ route('transactions') }}">
+                            <i class="bi bi-receipt me-1"></i> Transactions
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link {{ request()->is('products*') ? 'active' : '' }}" href="{{ route('products') }}">
                             <i class="bi bi-cup-hot me-1"></i> Products
                         </a>

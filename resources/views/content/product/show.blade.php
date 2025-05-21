@@ -85,8 +85,8 @@
                     <div class="card-body">
                         <h5 class="fw-bold mb-3">Additional Information</h5>
                         <div class="mb-3">
-                            <small class="text-muted d-block">Lead Time</small>
-                            <span class="fw-semibold">{{ $product->lead_time ?? 'N/A' }} days</span>
+                            <small class="text-muted d-block">Preparation Time</small>
+                            <span class="fw-semibold">{{ $product->lead_time ?? 'N/A' }} minutes</span>
                         </div>
                         <div class="mb-3">
                             <small class="text-muted d-block">Created At</small>

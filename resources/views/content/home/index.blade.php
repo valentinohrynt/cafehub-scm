@@ -8,6 +8,18 @@
 
         <div class="row g-4">
             <div class="col-md-6 col-lg-3">
+                <a href="{{ route('transactions') }}" class="text-decoration-none">
+                    <div class="card text-center shadow-sm h-100">
+                        <div class="card-body">
+                            <i class="bi bi-receipt display-4 text-secondary mb-3"></i>
+                            <h5 class="card-title">Transactions or Cashier</h5>
+                            <p class="card-text">Manage your cafe transactions.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
                 <a href="{{ route('products') }}" class="text-decoration-none">
                     <div class="card text-center shadow-sm h-100">
                         <div class="card-body">

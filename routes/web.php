@@ -1,12 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SupplierController;
-use App\Http\Controllers\RawMaterialController;
-use App\Http\Controllers\BillOfMaterialController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RawMaterialController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\BillOfMaterialController;
 
 // Route::get('/login', function () {
 //     return view('auth.login');
@@ -19,6 +20,12 @@ use App\Http\Controllers\DashboardController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions');
+Route::get('/transactions/cashier', [TransactionController::class, 'create'])->name('transactions.create');
+Route::post('/transactions', [TransactionController::class, 'store'])->name('transactions.store');
+
+Route::get('/transactions/history', [TransactionController::class, 'historyIndex'])->name('transactions.history');
 
 Route::get('/raw-materials', [RawMaterialController::class, 'index'])->name('raw_materials');
 Route::get('/raw-materials/create', [RawMaterialController::class, 'create'])->name('raw_materials.create');
@@ -54,6 +61,8 @@ Route::get('/bill-of-materials/{slug}/edit', [BillOfMaterialController::class, '
 Route::put('/bill-of-materials/{slug}', [BillOfMaterialController::class, 'update'])->name('bill_of_materials.update');
 Route::get('/bill-of-materials/{slug}', [BillOfMaterialController::class, 'show'])->name('bill_of_materials.show');
 Route::get('/bill-of-materials/{slug}/delete', [BillOfMaterialController::class, 'destroy'])->name('bill_of_materials.delete');
+
+
 
 // Route::get('/', function () {
 //     return view('welcome');
