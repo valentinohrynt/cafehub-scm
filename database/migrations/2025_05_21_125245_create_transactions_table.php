@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('table_number');
             $table->decimal('total_amount', 10, 2)->default(0.00);
             $table->enum('payment_method', ['cash','credit_card', 'bank_transfer', 'qris', 'debit_card'])->default('cash');
-            $table->enum('payment_status', ['unpaid', 'paid', 'pending'])->default('unpaid');
-            $table->string('status')->default('pending');
+            $table->enum('payment_status', ['unpaid', 'paid'])->default('unpaid');
+            $table->enum('status', ['in_progress', 'cancelled', 'done'])->default('in_progress');
             $table->foreignId('user_id')->constrained()->onDelete('restrict');
             $table->timestamps();
         });

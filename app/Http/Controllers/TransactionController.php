@@ -11,10 +11,13 @@ use App\Models\TransactionDetail;
 class TransactionController extends Controller
 {
     //
-
     public function index()
     {
-        return view('content.transaction.main.index');
+        $ongoingTransactions = Transaction::where('status', 'in_progress')
+                                         ->orderBy('created_at', 'desc')
+                                         ->paginate(20);
+
+        return view('content.transaction.main.index', compact('ongoingTransactions'));
     }
 
     public function create()
@@ -32,6 +35,8 @@ class TransactionController extends Controller
             'products.*.product_id' => 'required|exists:products,id',
             'products.*.quantity' => 'required|integer|min:1',
             'total_price' => 'required|string',
+            'payment_method' => 'required|string|in:cash,credit_card,bank_transfer,qris,debit_card',
+            'payment_status' => 'required|string|in:unpaid,paid',
         ]);
 
         $cleanedTotal = preg_replace('/[^\d.]/', '', $request->total_price);
@@ -39,12 +44,11 @@ class TransactionController extends Controller
         $transaction = Transaction::create([
             'code' => 'TRX-' . strtoupper(Str::random(6)),
             'total_amount' => $cleanedTotal,
-            'payment_method' => 'cash', 
-            'payment_status' => 'unpaid',
-            'status' => 'pending',
-            'user_id' => auth()->id(),
-            'customer_name' => $request->customer_name, 
-            'table_number' => $request->table_number,  
+            'payment_method' => $validatedData['payment_method'], 
+            'payment_status' => $validatedData['payment_status'],
+            'user_id' => '1',
+            'customer_name' => $validatedData['customer_name'], 
+            'table_number' => $validatedData['table_number'],  
         ]);
 
         foreach ($request->products as $item) {
@@ -60,18 +64,47 @@ class TransactionController extends Controller
             ]);
         }
 
-        return redirect()->route('transactions.index')->with('success', 'Transaction created successfully.');
+        return redirect()->route('transactions.show', $transaction->id)->with('success', 'Transaction created successfully!');
+    }
+
+    public function show($id) 
+    {
+
+        $transaction = Transaction::with(['transactionDetails.product', 'user'])->find($id);
+
+        if (!$transaction) {
+            abort(404, 'Transaksi dengan ID ' . $id . ' tidak ditemukan.');
+        }
+
+        return view('content.transaction.main.show', compact('transaction'));
+    }
+
+
+    public function updateStatus(Request $request, $id)
+    {
+        $transaction = Transaction::findOrFail($id);
+
+        $validatedData = $request->validate([
+            'status' => 'required|string|in:in_progress,cancelled,done',
+        ]);
+
+        $transaction->update(['status' => $validatedData['status']]);
+
+        return redirect()->route('transactions')->with('success', 'Transaction status updated successfully.');
     }
 
 
     public function historyIndex()
     {
-        return view('content.transaction.history.index');
+        $pastTransactions = Transaction::where('status','!=','in_progress')
+        ->orderBy('created_at', 'desc')
+        ->paginate(20);
+
+        return view('content.transaction.history.index', compact('pastTransactions'));
     }
 
-    public function historyShow()
+    public function historyShow($id)
     {
         return view('content.transaction.history.show');
     }
-
 }

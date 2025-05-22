@@ -36,7 +36,7 @@ class ProductController extends Controller
 
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::where('type', 'product')->get();
         return view('content.product.create', compact('categories'));
     }
 
@@ -70,7 +70,7 @@ class ProductController extends Controller
     public function edit($slug)
     {
         $product = Product::where('slug', $slug)->firstOrFail();
-        $categories = Category::all();
+        $categories = Category::where('type', 'product')->get();
 
         return view('content.product.edit', compact('product', 'categories'));
     }

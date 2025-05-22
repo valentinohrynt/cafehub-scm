@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class CategorySeeder extends Seeder
 {
@@ -12,6 +14,33 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        $now = Carbon::now();
+
+        DB::table('categories')->insert([
+            [
+                'name' => 'Food',
+                'type' => 'product',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'name' => 'Drink',
+                'type' => 'product',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'name' => 'Daily Needs',
+                'type' => 'raw_material',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'name' => 'Bulk Supplies',
+                'type' => 'raw_material',
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+        ]);
     }
 }

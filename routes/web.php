@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RawMaterialController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\BillOfMaterialController;
@@ -19,13 +18,15 @@ use App\Http\Controllers\BillOfMaterialController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
 Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions');
 Route::get('/transactions/cashier', [TransactionController::class, 'create'])->name('transactions.create');
 Route::post('/transactions', [TransactionController::class, 'store'])->name('transactions.store');
-
 Route::get('/transactions/history', [TransactionController::class, 'historyIndex'])->name('transactions.history');
+Route::get('/transactions/history/{id}', [TransactionController::class, 'historyShow'])->name('transactions.history.show');
+Route::get('/transactions/{id}', [TransactionController::class, 'show'])->name('transactions.show');
+Route::put('/transactions/{id}', [TransactionController::class, 'updateStatus'])->name('transactions.updateStatus');
+
+
 
 Route::get('/raw-materials', [RawMaterialController::class, 'index'])->name('raw_materials');
 Route::get('/raw-materials/create', [RawMaterialController::class, 'create'])->name('raw_materials.create');

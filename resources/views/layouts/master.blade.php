@@ -7,10 +7,12 @@
     <title>@yield('title', 'Cafe System')</title>
 
     <!-- CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
+
+    @stack('styles')
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -57,7 +59,7 @@
     @include('base.footer')
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/main.js') }}"></script>
 
     <script>
@@ -80,6 +82,7 @@
             });
         }, 5000);
     </script>
+    @stack('scripts')
 </body>
 
 </html>

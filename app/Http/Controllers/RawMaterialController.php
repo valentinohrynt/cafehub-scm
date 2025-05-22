@@ -21,7 +21,7 @@ class RawMaterialController extends Controller
 
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::where('type', 'raw_material')->get();
         $suppliers = Supplier::all();
         return view('content.raw_material.create', compact('categories', 'suppliers'));
     }
@@ -62,7 +62,7 @@ class RawMaterialController extends Controller
     public function edit($slug)
     {
         $rawMaterial= RawMaterial::where('slug', $slug)->firstOrFail();
-        $categories = Category::all();
+        $categories = Category::where('type', 'raw_material')->get();
         $suppliers = Supplier::all();
 
         return view('content.raw_material.edit', compact('rawMaterial', 'categories', 'suppliers'));

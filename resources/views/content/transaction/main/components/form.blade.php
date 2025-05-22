@@ -68,10 +68,8 @@
             <div class="col-md-6 mb-3">
                 <label for="payment_status" class="form-label">Payment Status</label>
                 <select name="payment_status" id="payment_status" class="form-control" required>
-                    <option value="">-- Select Payment Status --</option>
-                    <option value="paid">Paid</option>
                     <option value="unpaid">Unpaid</option>
-                    <option value="pending">Pending</option>
+                    <option value="paid">Paid</option>
                 </select>
             </div>
         </div>
